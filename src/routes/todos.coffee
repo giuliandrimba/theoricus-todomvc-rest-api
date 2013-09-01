@@ -10,25 +10,9 @@ class Todos
 
     @db = new Database @name
 
-    @db.open (err, db)=>
-      unless err
-        console.log "Connected to todos_db database"
-      else
-        console.log "An error ocurred: #{err}"
-
   all:(req, res)=>
-    @db.collection @name, strict:true, (err, collection)=>
-
-      unless err
-        collection.find().toArray (err, items)=>
-
-          unless err
-            res.send items
-          else
-            console.log "Couldn't retrive todos collection"
-
-      else
-        console.log "An error ocurred: #{err}"
+    @db.all (result)=>
+      res.send result
 
   read:(req, res)=>
     id = req.params.id
