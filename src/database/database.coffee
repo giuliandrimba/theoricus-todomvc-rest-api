@@ -6,9 +6,9 @@ BSON = mongo.BSONPure
 class Database
 
   constructor:(@name, @host = "localhost", @port=27017)->
-    @mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://localhost/mydb'
-    @server = new Server @host, @port, auto_reconnect:true
-    @db = new MongoDatabase @name, @mongoUri, safe:false
+    @mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or "localhost"
+    @server = new Server @mongoUri, @port, auto_reconnect:true
+    @db = new MongoDatabase @name, @server, safe:false
 
     @db.open (err, db)=>
       unless err
