@@ -8,4 +8,4 @@ build:
 	$(CS) -co lib src
 
 server.start:
-	$(FOREVER) lib/app.js
+	$(FOREVER) lib/app.js --minUptime 60000 --spinSleepTime 60000
