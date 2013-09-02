@@ -6,12 +6,9 @@ BSON = mongo.BSONPure
 class Database
 
   constructor:(@name, @host = "localhost", @port=27017)->
-    @mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or "mongodb://localhost/mydb"
+    @mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or "mongodb://localhost/todos_db"
 
-    @server = new Server @host, @port, auto_reconnect:true
-    @db = new MongoDatabase @name, @server, safe:false
-
-    @db.open (err, db)=>
+    MongoDatabase.connect @mongoUri, (err, @db)=>
       unless err
         console.log "Connected to todos_db database"
       else
