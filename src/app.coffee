@@ -9,10 +9,12 @@ class App
 
     @app.set "title", "TodoMVC"
 
-    @app.all '/*', (req, res, next)->
+    @app.all "/api/*", (req, res, next) ->
       res.header "Access-Control-Allow-Origin", "*"
-      res.header "Access-Control-Allow-Headers", "X-Requested-With"
+      res.header "Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With"
+      res.header "Access-Control-Allow-Methods", "GET, PUT, POST"
       next()
+
 
     @app.use express.logger("dev")
     @app.use express.bodyParser()
