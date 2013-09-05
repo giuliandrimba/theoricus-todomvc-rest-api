@@ -22,7 +22,7 @@ class App
       res.send 204
 
 
-    @routes()
+    # @routes()
     @server()
 
   routes:()->
