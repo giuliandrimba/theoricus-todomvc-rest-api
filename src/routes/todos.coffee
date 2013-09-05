@@ -12,6 +12,7 @@ class Todos
 
   all:(req, res)=>
     @db.all (result)=>
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.send result
 
   read:(req, res)=>
@@ -19,12 +20,14 @@ class Todos
     console.log "Retrieving todo #{id}"
 
     @db.read id, (result)=>
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.send result
 
   create:(req, res)=>
     todo = req.body
 
     @db.create todo, (result)=>
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.send result
 
   update:(req, res)=>
@@ -35,6 +38,7 @@ class Todos
     console.log (JSON.stringify todo)
 
     @db.update id, todo, (result)=>
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.send result
 
 
@@ -43,6 +47,7 @@ class Todos
     console.log "Deleting todo #{id}"
 
     @db.delete id, (result)=>
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.send req.body
 
 module.exports = new Todos

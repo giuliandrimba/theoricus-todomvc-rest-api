@@ -12,7 +12,7 @@ class App
       @app.set "title", "TodoMVC"
 
       @app.use (req, res, next)=>
-        res.set("Access-Control-Allow-Origin", "*");
+        res.setHeader("Access-Control-Allow-Origin", "*");
         next()
 
       @app.use express.logger("dev")
