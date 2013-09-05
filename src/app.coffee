@@ -9,22 +9,10 @@ class App
 
     @app.set "title", "TodoMVC"
 
-    @app.use express.methodOverride()
-
-    # ## CORS middleware
-    # see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
-    allowCrossDomain = (req, res, next) ->
-      res.setHeader "Access-Control-Allow-Origin", "*"
-      res.setHeader "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
-      res.setHeader "Access-Control-Allow-Headers", "Content-Type, Authorization"
-      
-      # intercept OPTIONS method
-      if "OPTIONS" is req.method
-        res.send 200
-      else
-        next()
-
-    @app.use allowCrossDomain
+    @app.all '/*', (req, res, next)->
+      res.header "Access-Control-Allow-Origin", "*"
+      res.header "Access-Control-Allow-Headers", "X-Requested-With"
+      next()
 
     @app.use express.logger("dev")
     @app.use express.bodyParser()
