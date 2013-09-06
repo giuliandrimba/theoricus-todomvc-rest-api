@@ -12,7 +12,13 @@ class Todos
 
   all:(req, res)=>
     @db.all (result, error)=>
-      res.send result
+      unless error
+        for item in result
+          item.id = item._id
+          
+        res.send result
+      else
+        res.send error
 
   read:(req, res)=>
     id = req.params.id
