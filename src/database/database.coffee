@@ -21,9 +21,9 @@ class Database
         collection.find().toArray (err, items)=>
 
           unless err
-            callback items
+            callback items, null
           else
-            callback ("error":"Couldn't retrive #{@name} collection")
+            callback null, {"error":"Couldn't retrive #{@name} collection"}
             console.log "Couldn't retrive todos collection"
 
       else
@@ -35,11 +35,10 @@ class Database
       unless err
         collection.findOne {"_id":new BSON.ObjectID(id)}, (err, item)=>
           unless err
-            callback item
+            callback item, null
           else
-            callback ("error":"Todo not found: #{id}")
+            callback null, {"error":"Todo not found: #{id}"}
             console.log "Error retrieving todo #{id}"
-            console.log err
 
       else
         @_collection_access_error callback
@@ -51,10 +50,10 @@ class Database
         collection.remove {"_id": new BSON.ObjectID(id)}, {safe:false}, (err, result)=>
           unless err
             console.log "Todo deleted"
-            callback {}
+            callback {}, null
           else
             console.log "Error deleting todo #{id}"
-            callback ("error":"Couldn't delete todo #{id}")
+            callback null, {"error":"Couldn't delete todo #{id}"}
       else
         @_collection_access_error callback
 
@@ -67,10 +66,10 @@ class Database
 
           unless err
             console.log "#{result} document(s) updated"
-            callback todo
+            callback todo, null
           else
             console.log "Error updating todo #{err}"
-            callback ("error":"Error updating todo #{id}")
+            callback null, {"error":"Error updating todo #{id}"}
       else
         @_collection_access_error callback
 
@@ -83,9 +82,9 @@ class Database
 
           unless err
             console.log "Success: #{JSON.stringify(result[0])}"
-            callback result[0]
+            callback result[0], null
           else
-            callback ("error":"Couldn't create todo")
+            callback null, {"error":"Couldn't create todo"}
 
       else
         @_collection_access_error callback
@@ -93,7 +92,7 @@ class Database
   _collection_access_error:(callback)->
     console.log "Couldn't access #{@name} collection"
     console.log err
-    callback ("error":"Couldn't connect to #{@name} collection")
+    callback null, {"error":"Couldn't connect to #{@name} collection"}
 
 
 module.exports = Database
