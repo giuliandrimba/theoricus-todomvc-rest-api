@@ -91,7 +91,6 @@ class Database
 
   _collection_access_error:(callback)->
     console.log "Couldn't access #{@name} collection"
-    console.log err
     callback null, {"error":"Couldn't connect to #{@name} collection"}
 
 
